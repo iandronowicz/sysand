@@ -1,0 +1,219 @@
+<%= javascript_include_tag "math" %>
+<%= stylesheet_link_tag "mezclador" %>
+
+<div class="mezclador">
+
+    <table class="gridtable">
+        <thead>
+            <tr>
+                <th>
+                    m3
+                </th>
+                <th>
+                    componente
+                </th>
+                <th>
+                    pesa (kg)
+                </th>
+                <th>
+                    % peso en la mezcla
+                </th>
+                <th>
+                Eliminar
+                </th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+
+        </tbody>
+    </table>
+
+    <input type="button" value="Agregar Componente" id="add-component-button"/>
+
+    <br/><br/>
+
+    <div style="float: left; font-size: 15px;">Volumen Mezcla Final (m3):</div><div style="float: left;"><input type="text" id="mix_final_m3"/></div>
+
+    <div style="clear: both;"><input type="button" value="Calcular" id="calculate-mix-button"/></div>
+
+    <br/><br/>
+
+    <label id="error-lbl"></label>
+
+    <table class="gridtable">
+        <tbody id="result-table">
+
+        </tbody>
+    </table>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#add-component-button").click(function(){
+            var counter = $(".tr-component").length;
+            if( counter <= 4 ) {
+                var new_tr = "";
+                new_tr += "<tr class=\"tr-component\">";
+                new_tr += "<td><input type=\"text\" class=\"m3s\" name=\"component["+counter+"][m3]\"/></td>";
+                new_tr += "<td><input type=\"text\" class=\"names\" name=\"component["+counter+"][name]\"/></td>";
+                new_tr += "<td><input type=\"text\" class=\"kgs\" name=\"component["+counter+"][kg]\"/></td>";
+                new_tr += "<td><input type=\"text\" class=\"mix_weight_participations\" name=\"component["+counter+"][mix_weight_participation]\"/></td>";
+                new_tr += "<td>";
+                if( counter >= 1 ) {
+                    new_tr += "<input type=\"button\" class=\"delete_component\" value=\"-\"/>";
+                }
+                new_tr += "</td>";
+                new_tr += "</tr>";
+
+                $("#table-body").append(new_tr);
+            }
+        });
+        
+        $("#add-component-button").click();
+        $("#add-component-button").click();
+
+        $("body").delegate(".delete_component", "click",  function(e){
+            $(this).parent().parent().remove();
+        });
+        
+        $("#calculate-mix-button").click(function(){
+            $("#result-table").html("");
+            $("input").css('background-color', '');
+
+            var inputs = new Array();
+            var has_errors = false;
+            var counter = $(".tr-component").length;
+            
+            var total_percentage = 0;
+            
+            for(var i=0; i<counter; i++) {
+                inputs[i] = new Array();
+                
+                var m3 = parseFloat($("input[name=\"component["+i+"][m3]\"]").val());
+                if(!isNaN(m3))
+                    inputs[i]["m3"] = m3;
+                else {
+                    $("input[name=\"component["+i+"][m3]\"]").val("invalido");
+                    $("input[name=\"component["+i+"][m3]\"]").css('background-color', 'red');
+                    has_errors = true;
+                }
+                
+                var name = $("input[name=\"component["+i+"][name]\"]").val();
+                if(name != null && name.length > 0)
+                    inputs[i]["name"] = name;
+                else {
+                    //$("input[name=\"component["+i+"][name]\"]").val("");
+                    $("input[name=\"component["+i+"][name]\"]").css('background-color', 'red');
+                    has_errors = true;
+                }
+                
+                var kg = parseFloat($("input[name=\"component["+i+"][kg]\"]").val());
+                if(!isNaN(kg))
+                    inputs[i]["kg"] = kg;
+                else {
+                    $("input[name=\"component["+i+"][kg]\"]").val("invalido");
+                    $("input[name=\"component["+i+"][kg]\"]").css('background-color', 'red');
+                    has_errors = true;
+                }
+                
+                var mix_weight_participation = parseFloat($("input[name=\"component["+i+"][mix_weight_participation]\"]").val());
+                if(!isNaN(mix_weight_participation) && mix_weight_participation > 0 && mix_weight_participation <= 100) {
+                    inputs[i]["mix_weight_participation"] = mix_weight_participation;
+                    total_percentage += mix_weight_participation;
+                } else {
+                    $("input[name=\"component["+i+"][mix_weight_participation]\"]").val("invalido");
+                    $("input[name=\"component["+i+"][mix_weight_participation]\"]").css('background-color', 'red');
+                    has_errors = true;
+                }
+            }
+            
+            var mix_final_m3 = parseFloat($("#mix_final_m3").val());
+            if(isNaN(mix_final_m3)) {
+                $("#mix_final_m3").val("invalido");
+                $("#mix_final_m3").css('background-color', 'red');
+                has_errors = true;
+            }
+            
+            if( total_percentage != 100 ) {
+                $("#error-lbl").html("La suma de los porcentajes debe dar 100%");
+                has_errors = true;
+            }
+            
+            if(!has_errors) {
+                $("#error-lbl").html("");
+                //do analysis
+                var coeff = "";
+                var result = "";
+                var search = "";
+                
+                //first equation is the sum:
+                for(var i=0; i<inputs.length; i++) {
+                    coeff += ("1 ");
+                    search += (inputs[i]["name"]+"\n");
+                }
+                result += String(mix_final_m3)+"\n";
+                coeff += ('\n');
+                
+                for(var i=0; i<inputs.length-1; i++) {
+                    for(var j=0; j<inputs.length; j++) {
+                        var value = inputs[i]["mix_weight_participation"]/100*inputs[j]["kg"]/inputs[j]["m3"];
+                        if( i==j )
+                            value -= (inputs[i]["kg"]/inputs[i]["m3"]);
+                        
+                        coeff += String(value) + " ";
+                            
+                    }
+                    coeff += "\n";
+                    result += ("0\n");
+                }
+                
+                var result = evalIt(coeff, result, search);
+                var splitted_result = result.split('\n');
+                var resultText = "<tr style=\"font-weight: bold;\"><td colspan=\"4\" style=\"background-color: #dedede !important;\">Mezcla Final</td>";
+                var total_mix_weight = 0;
+                var total_mix_m3 = 0;
+                var total_mix_participation = 0;
+            
+                for(var i=0; i<inputs.length; i++) {
+                    resultText += "<tr>";
+                    resultText += "<td>"+inputs[i]["name"]+"</td>"
+                    
+                    total_mix_m3 += eval(splitted_result[i]);
+                    resultText += "<td>"+eval(splitted_result[i]) + " m3</td>"
+                    
+                    total_mix_participation += eval(inputs[i]["mix_weight_participation"]);
+                    resultText += "<td>"+eval(inputs[i]["mix_weight_participation"])+ " %</td>"
+                    
+                    var curr_weight = (eval(splitted_result[i])*inputs[i]["kg"]/inputs[i]["m3"]);
+                    total_mix_weight += curr_weight;
+                    
+                    resultText += "<td>"+ curr_weight + " kg</td>"
+                    resultText += "</tr>";
+                }
+                
+                resultText += "<tr style=\"font-weight: bold;\">";
+                resultText += "<td style=\"background-color: #dedede !important;\">TOTALES</td>"
+                resultText += "<td style=\"background-color: #dedede !important;\">"+total_mix_m3+" m3</td>"
+                resultText += "<td style=\"background-color: #dedede !important;\">"+total_mix_participation+" %</td>"
+                resultText += "<td style=\"background-color: #dedede !important;\">"+total_mix_weight+" kg</td>"
+                resultText += "</tr>";
+                
+                $("#result-table").html(resultText);
+            }
+        });
+    });
+    
+    function evalIt(coef_matrix, right_vec, search_vec_textarea) {
+        var coef_matrix = parseMatrix(coef_matrix);
+        var right_vec = parseMatrix(right_vec);
+        if (coef_matrix != false && right_vec != false) {
+            if (!isRegular(coef_matrix)) {
+                clearFileds(search_vec_textarea);
+                return false;
+            }
+            var search_vec = solve_lineq(coef_matrix, right_vec);
+            return matr2str(search_vec);
+        }
+    }
+</script>
