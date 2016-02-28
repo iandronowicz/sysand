@@ -42,7 +42,7 @@ end
 # Use Capistrano for deployment
 # Deploy with Capistrano
 gem 'capistrano'
-gem 'rvm-capistrano'
+gem 'rvm-capistrano', require: false
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
