@@ -10,7 +10,7 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 set :repository,  "git@github.com:iandronowicz/sysand.git"
 set :scm, :git
-set :user_sudo, true
+set :user_sudo, false
 set :deploy_via, :remote_cache
 
 namespace :deploy do

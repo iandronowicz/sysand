@@ -51,5 +51,6 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'classy_enum'
 gem 'mysql2'
 gem 'devise'
+gem 'rake'
 
 #gem 'net-ssh', '2.7.0'
