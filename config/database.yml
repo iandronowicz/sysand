@@ -11,7 +11,7 @@ development:
   username: root
   password: root
   timeout: 5000
-  port: 8889
+  #port: 8889
   host: localhost
 
 # Warning: The database defined as "test" will be erased and

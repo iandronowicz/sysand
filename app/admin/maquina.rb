@@ -22,7 +22,7 @@ ActiveAdmin.register Maquina do
     column("Marca", :sortable => :marca) {|maquina| maquina.marca.text}
     column :modelo
     column :descripcion
-    column :serie
+    #column :serie
     column :horas
     column :anio
     column :encargado
