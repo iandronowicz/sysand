@@ -219,6 +219,7 @@ DEPENDENCIES
   jbuilder
   mysql2
   rails
+  rake
   rvm-capistrano
   sass-rails
   sdoc
