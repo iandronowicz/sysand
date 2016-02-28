@@ -7,7 +7,8 @@ set :default_stage, "staging"
 
 set :application, "sysand"
 default_run_options[:pty] = true
-set :repository,  "ssh://iandrono@git.kibind.com/home/git/sysand.git"
+ssh_options[:forward_agent] = true
+set :repository,  "git@github.com:iandronowicz/sysand.git"
 set :scm, :git
 set :user_sudo, true
 set :deploy_via, :remote_cache

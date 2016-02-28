@@ -1,7 +1,7 @@
-server '198.101.243.16', :app, :web, :primary => true
-set :user, "kibind"
-set :port, 1865
-set :rails_env, 'test'
+server 'iandrono.selfip.com', :app, :web, :primary => true
+set :user, "homer"
+set :port, 22
+set :rails_env, 'production'
 set :deploy_to, "/var/www/sysand"
 set :branch, "master"
 
