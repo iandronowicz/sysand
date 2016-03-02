@@ -14,6 +14,16 @@ ActiveAdmin.register MovimientoDeInsumo do
   #  permitted
   # end
 
+  scope :all, :default => true
+
+  scope :entrada do |movimientosdeinsumos|
+    movimientosdeinsumos.where(tipo_de_movimiento: TipoDeMovimiento[:entrada].to_s)
+  end
+
+  scope :salida do |movimientosdeinsumos|
+    movimientosdeinsumos.where(tipo_de_movimiento: TipoDeMovimiento[:salida].to_s)
+  end
+
   form do |f|
     f.inputs do
       f.input :insumo
