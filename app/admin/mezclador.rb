@@ -1,4 +1,5 @@
 ActiveAdmin.register_page "Mezclador" do
+	menu :priority => 99
 
 	#menu label: "Mezclador"
 

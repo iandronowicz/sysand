@@ -13,5 +13,13 @@ ActiveAdmin.register Empleado do
   #  permitted << :other if resource.something?
   #  permitted
   # end
+  index do
+    selectable_column
+    column :nombre
+    column :apellido
+    column :dni
+    column :cuil
+    actions
+  end
   
 end

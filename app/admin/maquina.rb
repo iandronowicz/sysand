@@ -16,13 +16,10 @@ ActiveAdmin.register Maquina do
 
   index do
     selectable_column
-    column "Id", :sortable => :id do |maquina|
-      link_to maquina.id, admin_maquina_path(maquina)
-    end
     column("Marca", :sortable => :marca) {|maquina| maquina.marca.text}
     column :modelo
     column :descripcion
-    #column :serie
+    column :serie
     column :horas
     column :anio
     column :encargado

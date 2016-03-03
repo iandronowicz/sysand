@@ -5,6 +5,7 @@ class Insumo < ActiveRecord::Base
 	has_one :reemplazado_por, :class_name => "Insumo", :foreign_key => "reemplaza_insumo_id"
 	validates :codigo, :presence => true, :uniqueness => {:case_sensitive => false}
 
+	has_many :maquinas, :class_name => "MaquinaUsaInsumo"
 
 	classy_enum_attr :tipo_de_insumo, :allow_nil => false, :allow_blank => false
 
@@ -15,7 +16,4 @@ class Insumo < ActiveRecord::Base
 		return ret
 	end
 
-	def cantidad_de_maquinas_que_lo_usan
-		MaquinaUsaInsumo.where(:insumo_id => self.id).count()
-	end
 end

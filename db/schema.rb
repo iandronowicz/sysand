@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140318180109) do
+ActiveRecord::Schema.define(version: 20160302225737) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -56,13 +56,14 @@ ActiveRecord::Schema.define(version: 20140318180109) do
   end
 
   create_table "insumos", force: :cascade do |t|
-    t.string   "tipo_de_insumo",      limit: 255
-    t.text     "descripcion",         limit: 65535
-    t.integer  "stock",               limit: 4,     default: 0
-    t.integer  "reemplaza_insumo_id", limit: 4
+    t.string   "tipo_de_insumo",            limit: 255
+    t.text     "descripcion",               limit: 65535
+    t.integer  "stock",                     limit: 4,     default: 0
+    t.integer  "reemplaza_insumo_id",       limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "codigo",              limit: 255
+    t.string   "codigo",                    limit: 255
+    t.integer  "maquina_usa_insumos_count", limit: 4,     default: 0, null: false
   end
 
   create_table "maquina_usa_insumos", force: :cascade do |t|
@@ -91,18 +92,6 @@ ActiveRecord::Schema.define(version: 20140318180109) do
     t.string   "tipo_de_movimiento", limit: 255
     t.integer  "cantidad",           limit: 4,     default: 1
     t.text     "descripcion",        limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "reparacion_id",      limit: 4
-  end
-
-  create_table "reparacions", force: :cascade do |t|
-    t.integer  "maquina_id",       limit: 4
-    t.text     "descripcion",      limit: 65535
-    t.datetime "fecha_pedido"
-    t.datetime "fecha_a_realizar"
-    t.datetime "fecha_realizado"
-    t.integer  "pedido_por_id",    limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end

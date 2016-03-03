@@ -14,16 +14,27 @@ ActiveAdmin.register Insumo do
   #  permitted
   # end
 
+  scope :all, :default => true
+
+  scope :sin_stock do |insumos|
+    insumos.where(stock: 0)
+  end
+
+  scope :con_stock do |insumos|
+     insumos.where("stock > ?", 0)
+  end
+
+  scope :usados_en_maquinas do |insumos|
+     insumos.where("maquina_usa_insumos_count > ?", 0)
+  end
+
   index do
     selectable_column
-    column "Id", :sortable => :id do |insumo|
-      link_to insumo.id, admin_insumo_path(insumo)
-    end
     column("Tipo", :sortable => :tipo_de_insumo) {|insumo| insumo.tipo_de_insumo.text}
     column :codigo
     column :stock
     column :descripcion
-    column("Usado en") { |insumo| insumo.cantidad_de_maquinas_que_lo_usan }
+    column "# maquinas que lo usan", :maquina_usa_insumos_count
     actions
   end
 
