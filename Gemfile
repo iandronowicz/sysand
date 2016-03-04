@@ -53,4 +53,6 @@ gem 'mysql2'
 gem 'devise'
 gem 'rake'
 
+gem 'activeadmin_addons'
+
 #gem 'net-ssh', '2.7.0'

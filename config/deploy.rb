@@ -25,4 +25,7 @@ namespace :deploy do
 	task :restart, :roles => :app, :except => { :no_release => true } do
 		run "touch #{File.join(current_path,'tmp','restart.txt')}"
 	end
+	task :mig, :roles => :app, :except => { :no_release => true } do
+		run "cd #{deploy_to}/current && rake RAILS_ENV=production db:migrate"
+	end
 end
