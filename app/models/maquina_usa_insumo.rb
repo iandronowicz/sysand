@@ -5,4 +5,6 @@ class MaquinaUsaInsumo < ActiveRecord::Base
 	validates :maquina, :presence => true
 	validates :insumo, :presence => true
 	validates :cantidad, :presence => true
+
+	validates :maquina_id, uniqueness: {scope: :insumo_id, :message => " esta máquina ya usa este insumo"}
 end
