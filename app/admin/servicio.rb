@@ -14,6 +14,24 @@ ActiveAdmin.register Servicio do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+	
+	config.sort_order = 'created_at_desc'
+
+	filter :maquina
+	filter :descripcion
+	filter :realizado#, as: :check_boxes
+	filter :fecha_realizado
+
+	show do
+		attributes_table do
+	    	row :maquina
+	    	row :maquina_horas
+	    	row :descripcion
+	    	bool_row :realizado
+	    	row :fecha_realizado
+	    	list_row "Insumos", :insumos_array
+	    end
+  	end
 
 	scope :all, :default => true
 
@@ -28,12 +46,14 @@ ActiveAdmin.register Servicio do
 	index do
 	    selectable_column
 	    column :maquina
-	    column :descripcion
-	    column :maquina_horas
-	    list_column :insumos_array
+	    #column :descripcion
+	    column "Horas", :maquina_horas
+	    list_column "Insumos", :insumos_array
 	    column :realizado
-	    column :fecha_realizado
-	    column :created_at
+	    column "Fecha realizado" do |f|
+		  f.fecha_realizado.strftime('%d/%m/%Y')
+		end
+	    #column :created_at
 	    actions
   	end
 

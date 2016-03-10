@@ -14,6 +14,22 @@ ActiveAdmin.register Insumo do
   #  permitted
   # end
 
+  config.sort_order = 'maquina_usa_insumos_count_desc'
+
+  filter :maquina
+  filter :codigo
+  filter :tipo_de_insumo, as: :select, collection: TipoDeInsumo.select_options
+
+  show do
+    attributes_table do
+        row("Tipo de insumo") { |b| status_tag b.tipo_de_insumo }
+        row :codigo
+        row :stock
+        row :descripcion
+        row("# maquinas que lo usan") { |b| b.maquina_usa_insumos_count }
+      end
+    end
+
   scope :all, :default => true
 
   scope :sin_stock do |insumos|
@@ -30,10 +46,10 @@ ActiveAdmin.register Insumo do
 
   index do
     selectable_column
-    column("Tipo", :sortable => :tipo_de_insumo) {|insumo| insumo.tipo_de_insumo.text}
+    column("Tipo", :sortable => :tipo_de_insumo) {|insumo| status_tag insumo.tipo_de_insumo.text}
     column :codigo
     column :stock
-    column :descripcion
+    #column :descripcion
     column "# maquinas que lo usan", :maquina_usa_insumos_count
     actions
   end

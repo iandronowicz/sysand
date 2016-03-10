@@ -7,4 +7,8 @@ class MaquinaUsaInsumo < ActiveRecord::Base
 	validates :cantidad, :presence => true
 
 	validates :maquina_id, uniqueness: {scope: :insumo_id, :message => " esta máquina ya usa este insumo"}
+
+	def to_s
+		return "#{self.maquina} <-> #{self.insumo.codigo}"
+	end
 end

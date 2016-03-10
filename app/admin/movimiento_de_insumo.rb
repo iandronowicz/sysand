@@ -14,6 +14,23 @@ ActiveAdmin.register MovimientoDeInsumo do
   #  permitted
   # end
 
+  config.sort_order = 'created_at_desc'
+
+  filter :insumo
+  filter :servicio
+  filter :tipo_de_movimiento, as: :select, collection: TipoDeMovimiento.select_options
+
+  show do
+    attributes_table do
+        row :insumo
+        row("Tipo de movimiento") { |b| status_tag b.tipo_de_movimiento }
+        row :cantidad
+        row :descripcion
+        row :servicio
+        row("Creado") { |b| b.created_at }
+      end
+    end
+
   scope :all, :default => true
 
   scope :entrada do |movimientosdeinsumos|
@@ -30,7 +47,9 @@ ActiveAdmin.register MovimientoDeInsumo do
     column("Tipo", :sortable => :tipo_de_movimiento) {|tdm| tdm.tipo_de_movimiento.text}
     column :cantidad
     column :descripcion
-    column :created_at
+    column "Creado" do |mdi|
+      mdi.created_at.strftime('%d/%m/%Y')
+    end
     actions
   end
 

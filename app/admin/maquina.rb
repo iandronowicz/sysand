@@ -14,9 +14,28 @@ ActiveAdmin.register Maquina do
   #  permitted
   # end
 
+  config.sort_order = 'marca_asc'
+
+  filter :marca, as: :select, collection: Marca.select_options
+  filter :modelo
+  filter :realizado#, as: :check_boxes
+  filter :fecha_realizado
+
+  show do
+    attributes_table do
+        row("Marca") { |b| status_tag b.marca }
+        row :modelo
+        row :descripcion
+        row :serie
+        row :horas
+        row :anios
+        row :encargado
+      end
+    end
+
   index do
     selectable_column
-    column("Marca", :sortable => :marca) {|maquina| maquina.marca.text}
+    column("Marca", :sortable => :marca) {|maquina| status_tag maquina.marca.text}
     column :modelo
     column :descripcion
     column :serie

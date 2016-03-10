@@ -5,14 +5,22 @@ class Servicio < ActiveRecord::Base
 	validates :maquina, :presence => true
 	#validates :maquina_horas, :presence => true
 
-	after_create :update_stock
-	after_update :update_stock
+	after_create :update_hours
+	after_update :update_hours
 
 	validates :maquina_horas, numericality: { only_integer: true, greater_than: 0, :allow_blank => true }
 
-	def update_stock
-		update_query = "horas = #{self.maquina_horas}"
-		Maquina.where(:id => self.maquina.id).update_all(update_query) unless self.maquina_horas.nil?
+	def update_hours
+		if self.maquina_horas.nil?
+			#traigo las horas de la maquina
+			if not self.maquina.horas.nil?
+				self.maquina_horas = self.maquina.horas
+				self.save
+			end
+		else
+			update_query = "horas = #{self.maquina_horas}"
+			Maquina.where(:id => self.maquina.id).update_all(update_query)
+		end
 	end
 
 	def insumos_array

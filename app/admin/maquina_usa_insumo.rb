@@ -14,6 +14,20 @@ ActiveAdmin.register MaquinaUsaInsumo do
   #  permitted
   # end
 
+  config.sort_order = 'maquina_id_asc'
+
+  filter :maquina
+  filter :insumo
+
+  show do
+    attributes_table do
+        row :maquina
+        row :insumo
+        row :cantidad
+        row :descripcion
+      end
+    end
+
   index do
     selectable_column
     column :maquina, :sortable => :maquina_id

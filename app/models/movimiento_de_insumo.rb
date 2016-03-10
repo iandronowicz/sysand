@@ -42,4 +42,8 @@ class MovimientoDeInsumo < ActiveRecord::Base
 		Insumo.where(:id => self.insumo.id).update_all(update_query)
 	end
 
+	def to_s
+		return "#{self.insumo} | #{self.tipo_de_movimiento.text}"
+	end
+
 end
