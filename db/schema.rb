@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160302225737) do
+ActiveRecord::Schema.define(version: 20160309210306) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -89,11 +89,22 @@ ActiveRecord::Schema.define(version: 20160302225737) do
 
   create_table "movimiento_de_insumos", force: :cascade do |t|
     t.integer  "insumo_id",          limit: 4
-    t.string   "tipo_de_movimiento", limit: 255
+    t.string   "tipo_de_movimiento", limit: 255,   default: "salida"
     t.integer  "cantidad",           limit: 4,     default: 1
     t.text     "descripcion",        limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "servicio_id",        limit: 4
+  end
+
+  create_table "servicios", force: :cascade do |t|
+    t.integer  "maquina_id",      limit: 4
+    t.text     "descripcion",     limit: 65535
+    t.integer  "maquina_horas",   limit: 4
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.boolean  "realizado",                     default: false
+    t.datetime "fecha_realizado"
   end
 
 end

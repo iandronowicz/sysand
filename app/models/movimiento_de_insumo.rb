@@ -2,6 +2,7 @@ class MovimientoDeInsumo < ActiveRecord::Base
 	include ClassyEnum::ActiveRecord
 	
 	belongs_to :insumo
+	belongs_to :servicio
 
 	validates :insumo, :presence => true
 	validates :cantidad, :presence => true, numericality: { only_integer: true, greater_than: 0 }
