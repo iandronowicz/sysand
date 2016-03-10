@@ -51,7 +51,7 @@ ActiveAdmin.register Servicio do
 	    list_column "Insumos", :insumos_array
 	    column :realizado
 	    column "Fecha realizado" do |f|
-		  f.fecha_realizado.strftime('%d/%m/%Y')
+		  (f.fecha_realizado.nil? ? "" : f.fecha_realizado.strftime('%d/%m/%Y') )
 		end
 	    #column :created_at
 	    actions
