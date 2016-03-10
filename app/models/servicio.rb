@@ -3,7 +3,7 @@ class Servicio < ActiveRecord::Base
 	has_many :movimiento_de_insumos, :dependent => :destroy
 	has_many :insumos, through: :movimiento_de_insumos
 	validates :maquina, :presence => true
-	validates :maquina_horas, :presence => true
+	#validates :maquina_horas, :presence => true
 
 	after_create :update_stock
 	after_update :update_stock
@@ -18,5 +18,14 @@ class Servicio < ActiveRecord::Base
 	def insumos_array
 		return self.insumos.to_a.map!(&:to_s)
 	end
+
+	validate do |servicio|
+	    servicio.movimiento_de_insumos.each do |mdi|
+	      next if mdi.valid?
+	      mdi.errors.full_messages.each do |msg|
+	        errors[:base] << "#{msg}"
+	      end
+    	end
+  	end
 
 end

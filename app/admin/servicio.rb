@@ -38,12 +38,17 @@ ActiveAdmin.register Servicio do
   	end
 
 	form do |f|
+		f.semantic_errors *f.object.errors.keys
     	f.inputs do
 			f.input :maquina
 			f.input :maquina_horas
 			f.input :descripcion
-			f.input :insumos, as: :check_boxes
 	    end
+
+	    f.inputs "Salen los siguientes insumos" do
+	    	f.input :insumos, as: :check_boxes
+	    end
+
 	    f.inputs "El servicio ya fue realizado?" do
     		f.input :realizado
     		f.input :fecha_realizado, as: :date_time_picker
