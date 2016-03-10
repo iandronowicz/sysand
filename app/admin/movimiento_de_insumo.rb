@@ -1,5 +1,5 @@
 ActiveAdmin.register MovimientoDeInsumo do
-  permit_params :insumo_id, :tipo_de_movimiento, :cantidad, :descripcion
+  permit_params :insumo_id, :tipo_de_movimiento, :cantidad, :descripcion, :servicio_id
   
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -40,6 +40,7 @@ ActiveAdmin.register MovimientoDeInsumo do
       f.input :tipo_de_movimiento, :as => :select, :collection => TipoDeMovimiento.select_options, :include_blank => false, :default => TipoDeMovimiento::Salida
       f.input :cantidad
       f.input :descripcion
+      f.input :servicio
     end
     f.actions
   end

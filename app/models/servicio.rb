@@ -28,4 +28,10 @@ class Servicio < ActiveRecord::Base
     	end
   	end
 
+  	def to_s
+  		ret = "#{self.maquina.to_s}"
+		ret = ret + " -> HORAS: #{self.maquina_horas}" unless self.maquina_horas.nil?
+		return ret
+  	end
+
 end

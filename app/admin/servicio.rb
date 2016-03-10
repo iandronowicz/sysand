@@ -1,6 +1,6 @@
 ActiveAdmin.register Servicio do
 
-	permit_params :maquina_id, :maquina_horas, :descripcion, insumo_ids: []
+	permit_params :maquina_id, :maquina_horas, :descripcion, :realizado, :fecha_realizado, insumo_ids: []
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
