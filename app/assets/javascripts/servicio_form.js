@@ -28,7 +28,7 @@ function insumos_de_maquina(maquina_id) {
 
       //Cargo las opciones correspondientes a la maquina seleccionada
       $.each(data, function(key, i){
-        $(".choices-group").append('<li class="choice"><label for="servicio_insumo_ids_'+i.id+'"><input type="checkbox" name="servicio[insumo_ids][]" id="servicio_insumo_ids_'+i.id+'" value="'+i.id+'">'+i.to_s+'</label></li>');
+        $(".choices-group").append('<li class="choice"><label for="servicio_insumo_ids_'+i.id+'"><input '+(i.stock<1?"disabled":"")+' type="checkbox" name="servicio[insumo_ids][]" id="servicio_insumo_ids_'+i.id+'" value="'+i.id+'">'+(i.stock<1?"<strike>":"")+i.to_s+' - STOCK: '+i.stock+(i.stock<1?"</strike>":"")+'</label></li>');
       });
 
       //Vuelvo a tildar los insumos que estaban tildados
