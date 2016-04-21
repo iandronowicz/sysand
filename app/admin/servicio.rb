@@ -50,9 +50,7 @@ ActiveAdmin.register Servicio do
 	    column "Horas", :maquina_horas
 	    list_column "Insumos", :insumos_array
 	    column :realizado
-	    column "Fecha realizado" do |f|
-		  (f.fecha_realizado.nil? ? "" : f.fecha_realizado.strftime('%d/%m/%Y') )
-		end
+	    column("Fecha realizado", :sortable => :fecha_realizado) {|s| s.fecha_realizado.nil? ? "" : s.fecha_realizado.strftime('%d/%m/%Y')}
 	    #column :created_at
 	    actions
   	end

@@ -41,5 +41,4 @@ class Servicio < ActiveRecord::Base
 		ret = ret + " -> HORAS: #{self.maquina_horas}" unless self.maquina_horas.nil?
 		return ret
   	end
-
 end

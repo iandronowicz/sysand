@@ -8,8 +8,13 @@ class Maquina < ActiveRecord::Base
 
 	has_many :maquina_usa_insumos, :dependent => :destroy
 	has_many :insumos, through: :maquina_usa_insumos
+	has_many :servicios
 
 	def to_s
-		"#{self.marca.text} #{self.modelo} #{(self.anio ? self.anio : "")} #{self.encargado}"
+		"#{self.marca.text} #{self.modelo} #{(self.anio ? self.anio : "")}"# #{self.encargado}"
 	end
+
+	def last_service_done
+  		Servicio.where({realizado: true, maquina_id: self.id}).order('fecha_realizado desc').limit(1).first
+  	end
 end

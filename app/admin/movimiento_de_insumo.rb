@@ -44,12 +44,10 @@ ActiveAdmin.register MovimientoDeInsumo do
   index do
     selectable_column
     column :insumo
-    column("Tipo", :sortable => :tipo_de_movimiento) {|tdm| tdm.tipo_de_movimiento.text}
+    column("Tipo", :sortable => :tipo_de_movimiento) {|mdi| mdi.tipo_de_movimiento.text}
     column :cantidad
     column :descripcion
-    column "Creado" do |mdi|
-      mdi.created_at.strftime('%d/%m/%Y')
-    end
+    column("Creado", :sortable => :created_at) {|mdi| mdi.created_at.strftime('%d/%m/%Y')}
     actions
   end
 
