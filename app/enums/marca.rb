@@ -12,3 +12,9 @@ end
 
 class Marca::TemaTerra < Marca
 end
+
+class Marca::Bombardier < Marca
+end
+
+class Marca::DeutzFahr < Marca
+end

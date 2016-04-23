@@ -8,7 +8,7 @@ ActiveAdmin.register_page "Dashboard" do
             panel "Servicios pendientes" do
                 table_for Servicio.where(realizado: false).order('created_at asc').limit(10) do
                     column("Máquina")   { |servicio| servicio.maquina }
-                    column("Descripción"){ |servicio| truncate(servicio.descripcion, :length => 158) }
+                    column("Descripción"){ |servicio| truncate(servicio.descripcion, :length => 140) }
                     column("")   { |servicio| link_to("Ver", admin_servicio_path(servicio)) }
                 end
             end
@@ -25,7 +25,7 @@ ActiveAdmin.register_page "Dashboard" do
                 table_for Maquina.order('modelo asc') do
                     column("Máquina") { |maquina| maquina }
                     column("Fecha") { |maquina| maquina.last_service_done.nil? ? "-" : maquina.last_service_done.fecha_realizado.strftime('%d/%m/%Y') }
-                    column("Descripción") { |maquina| maquina.last_service_done.nil? ? "-" : truncate(maquina.last_service_done.descripcion, :length => 107) }
+                    column("Descripción") { |maquina| maquina.last_service_done.nil? ? "-" : truncate(maquina.last_service_done.descripcion, :length => 80) }
                     column("Horas") { |maquina| maquina.last_service_done.nil? ? "-" : maquina.last_service_done.maquina_horas }
                     column("") { |maquina| maquina.last_service_done.nil? ? "-" : link_to("Ver", admin_servicio_path(maquina.last_service_done)) }
                 end
