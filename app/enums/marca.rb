@@ -9,3 +9,6 @@ end
 
 class Marca::Dynapac < Marca
 end
+
+class Marca::TemaTerra < Marca
+end

@@ -37,8 +37,9 @@ class Servicio < ActiveRecord::Base
   	end
 
   	def to_s
-  		ret = "#{self.maquina.to_s}"
-		ret = ret + " -> HORAS: #{self.maquina_horas}" unless self.maquina_horas.nil?
+  		ret = "#{self.created_at.strftime('%d/%m/%Y')} - #{self.maquina.to_s}"
+		#ret = ret + " -> HORAS: #{self.maquina_horas}" unless self.maquina_horas.nil?
+		ret = ret + "#{self.realizado ? " - Realizado el #{self.fecha_realizado.strftime('%d/%m/%Y')}" : ""}"
 		return ret
   	end
 end

@@ -15,7 +15,7 @@ ActiveAdmin.register Servicio do
 #   permitted
 # end
 	
-	config.sort_order = 'created_at_desc'
+	config.sort_order = 'fecha_realizado_asc'
 
 	filter :maquina
 	filter :descripcion

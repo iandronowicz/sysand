@@ -11,7 +11,7 @@ class Maquina < ActiveRecord::Base
 	has_many :servicios
 
 	def to_s
-		"#{self.marca.text} #{self.modelo} #{(self.anio ? self.anio : "")}"# #{self.encargado}"
+		"#{self.marca.text} #{self.modelo} #{(self.anio ? self.anio : "")} #{self.encargado}"
 	end
 
 	def last_service_done
