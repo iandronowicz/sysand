@@ -1,5 +1,5 @@
 ActiveAdmin.register Insumo do
-  permit_params :tipo_de_insumo, :codigo, :descripcion, :stock, :reemplaza_insumo_id
+  permit_params :tipo_de_insumo, :codigo, :descripcion, :stock, :reemplaza_insumo_id, maquina_ids: []
   
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -16,7 +16,7 @@ ActiveAdmin.register Insumo do
 
   config.sort_order = 'maquina_usa_insumos_count_desc'
 
-  filter :maquina
+  filter :maquinas
   filter :codigo
   filter :tipo_de_insumo, as: :select, collection: TipoDeInsumo.select_options
 
@@ -27,6 +27,7 @@ ActiveAdmin.register Insumo do
         row :stock
         row :descripcion
         row("# maquinas que lo usan") { |b| b.maquina_usa_insumos_count }
+        list_row "Maquinas que lo usan", :maquinas_array
       end
     end
 
@@ -51,6 +52,7 @@ ActiveAdmin.register Insumo do
     column :stock
     #column :descripcion
     column "# maquinas que lo usan", :maquina_usa_insumos_count
+    list_column "Maquinas que lo usan", :maquinas_array
     actions
   end
 
@@ -66,6 +68,9 @@ ActiveAdmin.register Insumo do
         f.input :reemplaza_insumo, :as => :select, :collection => Insumo.where("id != #{f.object.id}").collect { |v| [v, v.id] }, :include_blank => true
       end
     end
+    f.inputs "Se usa en las siguientes máquinas" do
+        f.input :maquinas#, as: :check_boxes
+      end
     f.actions
   end
   
