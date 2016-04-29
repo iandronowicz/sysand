@@ -51,7 +51,7 @@ ActiveAdmin.register Insumo do
     column :codigo
     column :stock
     #column :descripcion
-    column "# maquinas que lo usan", :maquina_usa_insumos_count
+    #column "# maquinas que lo usan", :maquina_usa_insumos_count
     list_column "Maquinas que lo usan", :maquinas_array
     actions
   end

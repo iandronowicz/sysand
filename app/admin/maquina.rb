@@ -1,5 +1,5 @@
 ActiveAdmin.register Maquina do
-  permit_params :marca, :modelo, :descripcion, :serie, :horas, :anio, :encargado_id
+  permit_params :marca, :modelo, :descripcion, :serie, :horas, :anio, :encargado_id, insumo_ids: []
   
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -28,8 +28,9 @@ ActiveAdmin.register Maquina do
         row :descripcion
         row :serie
         row :horas
-        row :anios
+        row :anio
         row :encargado
+        list_row "Insumos que usa", :insumos_array
       end
     end
 
@@ -42,6 +43,7 @@ ActiveAdmin.register Maquina do
     column :horas
     column :anio
     column :encargado
+    #list_column "Insumos", :insumos_array
     actions
   end
 
@@ -54,6 +56,9 @@ ActiveAdmin.register Maquina do
       f.input :horas
       f.input :anio
       f.input :encargado
+    end
+    f.inputs "Usa los siguientes insumos" do
+        f.input :insumos#, as: :check_boxes
     end
     f.actions
   end
