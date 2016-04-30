@@ -170,6 +170,7 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
   config.register_javascript 'math.js'
   config.register_javascript 'servicio_form.js'
+  config.register_javascript 'tarea_form.js'
 
 
   # == CSV options
