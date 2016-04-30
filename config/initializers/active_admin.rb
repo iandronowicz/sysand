@@ -171,6 +171,7 @@ ActiveAdmin.setup do |config|
   config.register_javascript 'math.js'
   config.register_javascript 'servicio_form.js'
   config.register_javascript 'tarea_form.js'
+  config.register_javascript 'sidebartoggle.js'
 
 
   # == CSV options

@@ -1,6 +1,6 @@
 ActiveAdmin.register Insumo do
   permit_params :tipo_de_insumo, :codigo, :descripcion, :stock, :reemplaza_insumo_id, maquina_ids: []
-  
+  menu priority: 4
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #

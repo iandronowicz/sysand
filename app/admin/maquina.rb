@@ -1,6 +1,6 @@
 ActiveAdmin.register Maquina do
   permit_params :marca, :modelo, :descripcion, :serie, :horas, :anio, :encargado_id, insumo_ids: []
-  
+  menu priority: 3
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #

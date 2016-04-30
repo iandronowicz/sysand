@@ -1,5 +1,6 @@
 ActiveAdmin.register Trabajo do
-	permit_params :titulo, :descripcion, :estado_de_trabajo, :fecha_de_inicio, :fecha_de_fin, tareas_attributes: [:id, :tipo_de_tarea_id, :descripcion, :cantidad, :precio_unitario, :precio_total, :_destroy]
+	menu priority: 9
+	permit_params :cliente_id, :titulo, :descripcion, :estado_de_trabajo, :fecha_de_inicio, :fecha_de_fin, tareas_attributes: [:id, :tipo_de_tarea_id, :descripcion, :cantidad, :precio_unitario, :precio_total, :_destroy]
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
@@ -12,6 +13,13 @@ ActiveAdmin.register Trabajo do
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
+	config.sort_order = 'fecha_de_inicio_desc'
+
+	filter :titulo
+	filter :descripcion
+	filter :estado_de_trabajo, as: :select, collection: EstadoDeTrabajo.select_options
+	filter :factura
+	filter :fecha_de_inicio
 	
 	index do
 	    selectable_column
@@ -29,6 +37,7 @@ ActiveAdmin.register Trabajo do
 	form do |f|
 		f.semantic_errors *f.object.errors.keys
     	f.inputs do
+    		f.input :cliente
 			f.input :titulo
 			f.input :descripcion
 			f.input :estado_de_trabajo, :as => :select, :collection => EstadoDeTrabajo.select_options, :include_blank => false

@@ -1,4 +1,5 @@
 ActiveAdmin.register Tarea do
+	menu priority: 10
 	permit_params :tipo_de_tarea_id, :descripcion, :cantidad, :precio_unitario, :precio_total
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -13,5 +14,30 @@ ActiveAdmin.register Tarea do
 #   permitted
 # end
 
+	config.sort_order = 'trabajos.fecha_de_inicio_desc'
+
+	filter :trabajo
+	filter :descripcion
+	filter :tipo_de_tarea
+
+	index do
+	    selectable_column
+	    column("Trabajo", :sortable => :trabajo_id) {|t| t.trabajo}
+	    column :descripcion
+	    column :tipo_de_tarea
+	    column :cantidad
+	    number_column :precio_unitario, as: :currency, unit: "$", separator: "."
+	    number_column :precio_total, as: :currency, unit: "$", separator: "."
+	    actions
+	    div :class => "panel" do
+	    	h3 "Total: #{number_to_currency(Tarea.search(params[:q]).result.sum(:precio_total), unit: '$', separator: '.')}"
+	    end
+  	end
+
+  	controller do
+		def scoped_collection
+			super.includes(:trabajo).select '*'#, count(authors.*) as author_count'
+		end
+	end
 
 end

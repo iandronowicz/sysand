@@ -1,6 +1,6 @@
 ActiveAdmin.register MaquinaUsaInsumo do
   permit_params :maquina_id, :insumo_id, :cantidad, :descripcion
-  
+  menu priority: 5
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
