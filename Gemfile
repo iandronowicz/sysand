@@ -57,3 +57,5 @@ gem 'activeadmin_addons'
 gem 'active_admin_datetimepicker'
 
 #gem 'net-ssh', '2.7.0'
+
+gem 'spreadsheet'

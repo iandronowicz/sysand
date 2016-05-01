@@ -56,4 +56,15 @@ ActiveAdmin.register Trabajo do
 	    f.actions
 	end
 
+	controller do
+		def index
+			index! do |format|
+		        format.xls {
+		          spreadsheet = TrabajosSpreadsheet.new @trabajos
+		          send_data spreadsheet.generate_xls, filename: "trabajos.xls"
+		        }
+		    end
+		end
+	end
+
 end
