@@ -23,6 +23,7 @@ ActiveAdmin.register Trabajo do
 	
 	index do
 	    selectable_column
+	    column("Inicio", :sortable => :fecha_de_inicio) {|t| t.fecha_de_inicio.nil? ? "" : t.fecha_de_inicio.strftime('%d/%m/%Y')}
 	    column :titulo
 	    column :descripcion
 	    column("Estado", :sortable => :estado_de_trabajo) {|t| status_tag t.estado_de_trabajo.text}
@@ -43,6 +44,7 @@ ActiveAdmin.register Trabajo do
 			f.input :estado_de_trabajo, :as => :select, :collection => EstadoDeTrabajo.select_options, :include_blank => false
 			f.input :fecha_de_inicio, as: :date_time_picker
 			f.input :fecha_de_fin, as: :date_time_picker
+			f.input :factura
 	    end
 	    f.inputs "Tareas realizadas" do
 	        f.has_many :tareas, allow_destroy: true do |ff|

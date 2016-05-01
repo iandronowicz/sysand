@@ -22,6 +22,7 @@ ActiveAdmin.register Tarea do
 
 	index do
 	    selectable_column
+	    column("Inicio", :sortable => "trabajos.fecha_de_inicio") {|t| t.trabajo.fecha_de_inicio.nil? ? "" : t.trabajo.fecha_de_inicio.strftime('%d/%m/%Y')}
 	    column("Trabajo", :sortable => :trabajo_id) {|t| t.trabajo}
 	    column :descripcion
 	    column :tipo_de_tarea
