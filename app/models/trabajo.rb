@@ -17,6 +17,10 @@ class Trabajo < ActiveRecord::Base
 		total
 	end
 
+	def tareas_array
+		return self.tareas.to_a.map!(&:to_s)
+	end
+
 	def to_s
 		self.titulo
 	end

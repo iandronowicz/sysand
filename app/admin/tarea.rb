@@ -20,6 +20,17 @@ ActiveAdmin.register Tarea do
 	filter :descripcion
 	filter :tipo_de_tarea
 
+	show do
+		attributes_table do
+			row :trabajo
+			row :descripcion
+	    	row :tipo_de_tarea
+	    	row :cantidad
+	    	row("Precio unitario") { |b| number_to_currency(b.precio_unitario, unit: '$', separator: '.') }
+	    	row("Precio total") { |b| number_to_currency(b.precio_total, unit: '$', separator: '.') }
+	    end
+  	end
+
 	index do
 	    selectable_column
 	    column("Inicio", :sortable => "trabajos.fecha_de_inicio") {|t| t.trabajo.fecha_de_inicio.nil? ? "" : t.trabajo.fecha_de_inicio.strftime('%d/%m/%Y')}

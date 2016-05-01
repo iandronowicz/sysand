@@ -1,6 +1,6 @@
 ActiveAdmin.register Trabajo do
 	menu priority: 9
-	permit_params :cliente_id, :titulo, :descripcion, :estado_de_trabajo, :fecha_de_inicio, :fecha_de_fin, tareas_attributes: [:id, :tipo_de_tarea_id, :descripcion, :cantidad, :precio_unitario, :precio_total, :_destroy]
+	permit_params :factura, :cliente_id, :titulo, :descripcion, :estado_de_trabajo, :fecha_de_inicio, :fecha_de_fin, tareas_attributes: [:id, :tipo_de_tarea_id, :descripcion, :cantidad, :precio_unitario, :precio_total, :_destroy]
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
@@ -20,6 +20,19 @@ ActiveAdmin.register Trabajo do
 	filter :estado_de_trabajo, as: :select, collection: EstadoDeTrabajo.select_options
 	filter :factura
 	filter :fecha_de_inicio
+
+	show do
+		attributes_table do
+			row :cliente
+	    	row :titulo
+	    	row :descripcion
+	    	row("Estado") { |b| status_tag b.estado_de_trabajo }
+	    	row :fecha_de_inicio
+	    	row :fecha_de_fin
+	    	list_row "Tareas", :tareas_array
+	    	row("Total") { |b| number_to_currency(b.total, unit: '$', separator: '.') }
+	    end
+  	end
 	
 	index do
 	    selectable_column
