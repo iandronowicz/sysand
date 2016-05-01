@@ -31,6 +31,7 @@ ActiveAdmin.register Trabajo do
 	    	row :fecha_de_fin
 	    	list_row "Tareas", :tareas_array
 	    	row("Total") { |b| number_to_currency(b.total, unit: '$', separator: '.') }
+	    	row :factura
 	    end
   	end
 	
