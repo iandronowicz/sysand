@@ -38,11 +38,11 @@ ActiveAdmin.register Trabajo do
 	index do
 	    selectable_column
 	    column("Inicio", :sortable => :fecha_de_inicio) {|t| t.fecha_de_inicio.nil? ? "" : t.fecha_de_inicio.strftime('%d/%m/%Y')}
-	    column :titulo
+	    column("Título", :sortable => :titulo) {|t| link_to(t.titulo, admin_trabajo_path(t))}
 	    column :descripcion
 	    column("Estado", :sortable => :estado_de_trabajo) {|t| status_tag t.estado_de_trabajo.text}
 	    number_column :total, as: :currency, unit: "$", separator: "."
-	    actions
+	    #actions
 
 	    div :class => "panel" do
 	    	h3 "Total: #{number_to_currency(Trabajo.joins(:tareas).search(params[:q]).result.sum(:precio_total), unit: '$', separator: '.')}"
