@@ -29,10 +29,20 @@ ActiveAdmin.register Trabajo do
 	    	row("Estado") { |b| status_tag b.estado_de_trabajo }
 	    	row :fecha_de_inicio
 	    	row :fecha_de_fin
-	    	list_row "Tareas", :tareas_array
+	    	#list_row "Tareas", :tareas_array
 	    	row("Total") { |b| number_to_currency(b.total, unit: '$', separator: '.') }
 	    	row :factura
 	    end
+	    panel "Tareas" do
+		    table_for trabajo.tareas do
+	        	#column("Inicio") {:fecha_de_inicio.nil? ? "" : t.trabajo.fecha_de_inicio.strftime('%d/%m/%Y')}
+			    column :descripcion
+			    column :tipo_de_tarea
+			    column :cantidad
+			    number_column :precio_unitario, as: :currency, unit: "$", separator: "."
+			    number_column :precio_total, as: :currency, unit: "$", separator: "."
+		    end
+  		end unless trabajo.tareas.count == 0
   	end
 	
 	index do

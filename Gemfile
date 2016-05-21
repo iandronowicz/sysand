@@ -59,3 +59,5 @@ gem 'active_admin_datetimepicker'
 #gem 'net-ssh', '2.7.0'
 
 gem 'spreadsheet'
+
+gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"

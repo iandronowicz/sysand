@@ -1,6 +1,6 @@
 ActiveAdmin.register Servicio do
 
-	permit_params :maquina_id, :maquina_horas, :descripcion, :realizado, :fecha_realizado, insumo_ids: []
+	permit_params :maquina_id, :maquina_horas, :descripcion, :realizado, :fecha_realizado, insumo_ids: [], archivos_attributes: [:id, :propietario_id, :imagen, :_destroy]
 menu priority: 7
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -31,6 +31,11 @@ menu priority: 7
 	    	row :fecha_realizado
 	    	list_row "Insumos", :insumos_array
 	    end
+	    panel "Archivos" do
+		    table_for servicio.archivos do
+	        	image_column :imagen, style: :large
+		    end
+  		end unless servicio.archivos.count == 0
   	end
 
 	scope :all, :default => true
@@ -71,6 +76,13 @@ menu priority: 7
     		f.input :realizado
     		f.input :fecha_realizado, as: :date_time_picker
     	end
+
+    	f.inputs "Archivos" do
+    		f.has_many :archivos, allow_destroy: true do |ff|
+	          ff.input :imagen, :as => :file, :hint => (ff.template.image_tag(ff.object.imagen.url(:small)) unless ff.object.new_record?)
+	        end
+    	end
+
 	    f.actions
 	end
 end

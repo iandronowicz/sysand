@@ -5,6 +5,11 @@ class Servicio < ActiveRecord::Base
 	validates :maquina, :presence => true
 	#validates :maquina_horas, :presence => true
 
+	has_many :archivos, class_name: "Archivo", foreign_key: "propietario_id", :dependent => :destroy
+
+
+	accepts_nested_attributes_for :archivos, :reject_if => lambda { |t| t['imagen'].blank? }, :allow_destroy => true
+
 	after_create :update_hours
 	after_update :update_hours
 
