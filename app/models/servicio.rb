@@ -1,6 +1,6 @@
 class Servicio < ActiveRecord::Base
 	belongs_to :maquina
-	has_many :movimiento_de_insumos, :dependent => :destroy
+	has_many :movimiento_de_insumos#, :dependent => :destroy
 	has_many :insumos, through: :movimiento_de_insumos
 	validates :maquina, :presence => true
 	#validates :maquina_horas, :presence => true

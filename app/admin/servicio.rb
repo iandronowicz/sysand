@@ -15,7 +15,7 @@ menu priority: 7
 #   permitted
 # end
 	
-	config.sort_order = 'fecha_realizado_asc'
+	config.sort_order = 'realizado_asc'
 
 	filter :maquina
 	filter :descripcion
