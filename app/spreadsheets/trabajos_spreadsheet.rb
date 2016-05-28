@@ -62,22 +62,29 @@ class TrabajosSpreadsheet
       trabajo_index += 1
 
       row_index += 1
-      trabajo.tareas.each do |tarea|
-        sheet.row(row_index).set_format(0, default_format2)
-        sheet.row(row_index).set_format(1, default_format2)
-        sheet.row(row_index).set_format(2, default_format2)
-
-        sheet.row(row_index).insert 0, tarea.descripcion
-        sheet.row(row_index).insert 1, tarea.tipo_de_tarea.to_s
-        sheet.row(row_index).insert 2, tarea.cantidad
-
-        sheet.row(row_index).set_format(3, currency_format)
-        sheet.row(row_index).insert 3, tarea.precio_unitario
-
-        sheet.row(row_index).set_format(4, currency_format)
-        sheet.row(row_index).insert 4, tarea.precio_total
+      if trabajo.tareas.count == 0
+        sheet.merge_cells(row_index, 0, row_index, 4)
+        sheet.row(row_index).insert 0, "Trabajo Pendiente"
+        sheet.row(row_index).set_format 0, default_format2
         row_index += 1
-        total += tarea.precio_total
+      else  
+        trabajo.tareas.each do |tarea|
+          sheet.row(row_index).set_format(0, default_format2)
+          sheet.row(row_index).set_format(1, default_format2)
+          sheet.row(row_index).set_format(2, default_format2)
+
+          sheet.row(row_index).insert 0, tarea.descripcion
+          sheet.row(row_index).insert 1, tarea.tipo_de_tarea.to_s
+          sheet.row(row_index).insert 2, tarea.cantidad
+
+          sheet.row(row_index).set_format(3, currency_format)
+          sheet.row(row_index).insert 3, tarea.precio_unitario
+
+          sheet.row(row_index).set_format(4, currency_format)
+          sheet.row(row_index).insert 4, tarea.precio_total
+          row_index += 1
+          total += tarea.precio_total
+        end
       end
     end
     

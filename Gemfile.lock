@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: cce908d9793ba1fce8483afe5e4112f97d7d0857
+  revision: b8123d60187f2895582814d8a6baae71ddcc1fe1
   specs:
     activeadmin (1.0.0.pre2)
       arbre (~> 1.0, >= 1.0.2)
@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: git://github.com/thoughtbot/paperclip.git
-  revision: 2c59f96fe4ce8346a7d9bb9a062f2cd7073d035a
+  revision: d61b7069c2ce7226e9b0ea65bafc0a21d2a9c19e
   specs:
     paperclip (5.0.0.beta2)
       activemodel (>= 4.2.0)
@@ -52,7 +52,7 @@ GEM
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
     active_admin_datetimepicker (0.2.0)
       xdan-datetimepicker-rails (~> 2.5.1)
-    activeadmin_addons (0.9.1)
+    activeadmin_addons (0.9.2)
       railties
       select2-rails (~> 3.5.9)
       xdan-datetimepicker-rails (~> 2.5.1)
@@ -140,9 +140,9 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    mime-types (3.0)
+    mime-types (3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0221)
+    mime-types-data (3.2016.0521)
     mimemagic (0.3.1)
     mini_portile2 (2.0.0)
     minitest (5.9.0)
@@ -233,7 +233,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     warden (1.2.6)
       rack (>= 1.0)
-    xdan-datetimepicker-rails (2.5.1)
+    xdan-datetimepicker-rails (2.5.4)
       jquery-rails
       rails (>= 3.2.16)
 

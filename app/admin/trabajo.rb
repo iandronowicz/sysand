@@ -87,7 +87,7 @@ ActiveAdmin.register Trabajo do
 			index! do |format|
 		        format.xls {
 		          spreadsheet = TrabajosSpreadsheet.new @trabajos
-		          send_data spreadsheet.generate_xls, filename: "trabajos.xls"
+		          send_data spreadsheet.generate_xls, filename: "#{Date.today.strftime('%d/%m/%Y')} - Trabajos.xls"
 		        }
 		    end
 		end
