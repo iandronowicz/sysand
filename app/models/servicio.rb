@@ -1,19 +1,17 @@
 class Servicio < ActiveRecord::Base
-	belongs_to :maquina
-	has_many :movimiento_de_insumos#, :dependent => :destroy
-	has_many :insumos, through: :movimiento_de_insumos
-	validates :maquina, :presence => true
-	#validates :maquina_horas, :presence => true
-
-	has_many :archivos, class_name: "Archivo", foreign_key: "propietario_id", :dependent => :destroy
-
-
-	accepts_nested_attributes_for :archivos, :reject_if => lambda { |t| t['imagen'].blank? }, :allow_destroy => true
 
 	after_create :update_hours
 	after_update :update_hours
 
+	belongs_to :maquina
+	has_many :movimiento_de_insumos#, :dependent => :destroy
+	has_many :insumos, through: :movimiento_de_insumos, :before_remove => :fire_before_remove_in_movimiento_de_insumos
+
+	validates :maquina, :presence => true
 	validates :maquina_horas, numericality: { only_integer: true, greater_than: 0, :allow_blank => true }
+
+	has_many :archivos, class_name: "Archivo", foreign_key: "propietario_id", :dependent => :destroy
+	accepts_nested_attributes_for :archivos, :reject_if => lambda { |t| t['imagen'].blank? }, :allow_destroy => true
 
 	def update_hours
 		if self.maquina_horas.nil?
@@ -47,4 +45,10 @@ class Servicio < ActiveRecord::Base
 		ret = ret + "#{self.realizado ? " - Realizado el #{self.fecha_realizado.strftime('%d/%m/%Y')}" : ""}"
 		return ret
   	end
+
+  	private
+	  def fire_before_remove_in_movimiento_de_insumos(insumo)
+	    movimiento_de_insumo = self.movimiento_de_insumos.find_by_insumo_id(insumo.id)
+	    movimiento_de_insumo.destroy_stock
+	  end
 end
