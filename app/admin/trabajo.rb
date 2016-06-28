@@ -17,7 +17,7 @@ ActiveAdmin.register Trabajo do
 
 	filter :titulo
 	filter :descripcion
-	filter :estado_de_trabajo, as: :select, collection: EstadoDeTrabajo.select_options
+	filter :estado_de_trabajo, as: :select, collection: EstadoDeTrabajo.select_options, multiple: true
 	filter :factura
 	filter :fecha_de_inicio
 
