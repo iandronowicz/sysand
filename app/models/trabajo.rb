@@ -12,7 +12,7 @@ class Trabajo < ActiveRecord::Base
 	def total
 		total = 0
 		self.tareas.each do |tarea|
-			total = total + tarea.precio_total
+			total = total + tarea.precio_total unless tarea.precio_total.blank?
 		end
 		total
 	end

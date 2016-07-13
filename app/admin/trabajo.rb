@@ -15,6 +15,13 @@ ActiveAdmin.register Trabajo do
 # end
 	config.sort_order = 'fecha_de_inicio_desc'
 
+	scope :all
+
+	scope :no_facturados, :default => true do |t|
+		t.where("estado_de_trabajo <> ?", EstadoDeTrabajo::Facturado.new.to_s)
+	end
+
+	filter :cliente
 	filter :titulo
 	filter :descripcion
 	filter :estado_de_trabajo, as: :select, collection: EstadoDeTrabajo.select_options, multiple: true
