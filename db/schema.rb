@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519142401) do
+ActiveRecord::Schema.define(version: 20160713233021) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -148,10 +148,10 @@ ActiveRecord::Schema.define(version: 20160519142401) do
     t.string   "estado_de_trabajo", limit: 255
     t.string   "factura",           limit: 255
     t.integer  "cliente_id",        limit: 4
-    t.datetime "fecha_de_inicio"
+    t.datetime "fecha_de_inicio",                 default: '2016-07-13 23:33:54', null: false
     t.datetime "fecha_de_fin"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
   end
 
 end
