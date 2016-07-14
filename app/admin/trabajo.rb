@@ -62,7 +62,7 @@ ActiveAdmin.register Trabajo do
 	    #actions
 
 	    div :class => "panel" do
-	    	h3 "Total: #{number_to_currency(Trabajo.joins(:tareas).search(params[:q]).result.sum(:precio_total), unit: '$', separator: '.')}"
+	    	h3 "Total: #{number_to_currency(trabajos.joins(:tareas).search(params[:q]).result.sum(:precio_total), unit: '$', separator: '.')}"
 	    end
   	end
 

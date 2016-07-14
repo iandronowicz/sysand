@@ -47,7 +47,7 @@ gem 'rvm-capistrano', require: false
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', github: 'activeadmin/activeadmin'
 gem 'classy_enum'
 gem 'mysql2'
 gem 'devise'
@@ -61,3 +61,5 @@ gem 'active_admin_datetimepicker'
 gem 'spreadsheet'
 
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
+
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
