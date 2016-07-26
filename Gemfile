@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
+gem 'rails', '4.2.7'
 
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
@@ -47,7 +47,7 @@ gem 'rvm-capistrano', require: false
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'activeadmin', github: 'activeadmin/activeadmin'
+gem 'activeadmin', '1.0.0.pre4'#, github: 'activeadmin'
 gem 'classy_enum'
 gem 'mysql2'
 gem 'devise'
@@ -62,4 +62,4 @@ gem 'spreadsheet'
 
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 
-gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+#gem 'inherited_resources', github: 'activeadmin/inherited_resources'

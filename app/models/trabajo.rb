@@ -24,4 +24,8 @@ class Trabajo < ActiveRecord::Base
 	def to_s
 		self.titulo
 	end
+
+	before_create do
+    	self.fecha_de_inicio = Time.now
+  	end
 end

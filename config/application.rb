@@ -21,5 +21,7 @@ module Sysand
     # config.i18n.default_locale = :de
     config.i18n.default_locale = :es
     config.autoload_paths += %W(#{config.root}/app/spreadsheets)
+    config.active_record.default_timezone = :local
+    config.time_zone = 'Buenos Aires'
   end
 end

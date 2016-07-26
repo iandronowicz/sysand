@@ -1,18 +1,7 @@
 ActiveAdmin.register Trabajo do
 	menu priority: 9
 	permit_params :factura, :cliente_id, :titulo, :descripcion, :estado_de_trabajo, :fecha_de_inicio, :fecha_de_fin, tareas_attributes: [:id, :tipo_de_tarea_id, :descripcion, :cantidad, :precio_unitario, :precio_total, :_destroy]
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+
 	config.sort_order = 'fecha_de_inicio_desc'
 
 	scope :all
@@ -79,7 +68,7 @@ ActiveAdmin.register Trabajo do
 	    end
 	    f.inputs "Tareas realizadas" do
 	        f.has_many :tareas, allow_destroy: true do |ff|
-	          ff.input :tipo_de_tarea
+	          ff.input :tipo_de_tarea, :as => :select, :collection => TipoDeTarea.all.map{|u| ["#{u.to_s_plus}", u.id]}
 	          ff.input :descripcion
 	          ff.input :cantidad
 	          ff.input :precio_unitario
