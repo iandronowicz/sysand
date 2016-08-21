@@ -1,4 +1,12 @@
 $(function() {
+  //ajax loading gif
+  $("body").append("<div class='modal'><!-- Place at bottom of page --></div>");
+  $body = $("body");
+  $(document).on({
+      ajaxStart: function() { $body.addClass("loading");    },
+      ajaxStop: function() { $body.removeClass("loading"); }    
+  });
+
 	insumos_de_maquina($("#servicio_maquina_id").val());
 	$("#servicio_maquina_id").change(function(){
 		insumos_de_maquina($(this).val());
