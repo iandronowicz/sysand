@@ -52,7 +52,7 @@ class TrabajosSpreadsheet
     total = 0
     trabajos.each do |trabajo|
       sheet.merge_cells(row_index, 0, row_index, 4)
-      sheet.row(row_index).insert 0, "#{trabajo.titulo}"
+      sheet.row(row_index).insert 0, "#{trabajo.titulo}#{(trabajo.factura.blank? ? "" : ': '+trabajo.factura)}"
       sheet.row(row_index).set_format 0, header_format
 
       sheet2.row(trabajo_index).insert 0, "#{trabajo.titulo}"
