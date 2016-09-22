@@ -18,3 +18,6 @@ end
 
 class Marca::DeutzFahr < Marca
 end
+
+class Marca::NewHolland < Marca
+end
