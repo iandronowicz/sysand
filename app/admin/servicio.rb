@@ -1,6 +1,6 @@
 ActiveAdmin.register Servicio do
 
-	permit_params :estado_de_servicio, :maquina_id, :maquina_horas, :descripcion, :realizado, :fecha_realizado, insumo_ids: [], archivos_attributes: [:id, :propietario_id, :imagen, :_destroy]
+	permit_params :estado_de_servicio, :maquina_id, :maquina_horas, :descripcion, :fecha_realizado, insumo_ids: [], archivos_attributes: [:id, :propietario_id, :imagen, :_destroy]
 menu priority: 7
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -27,7 +27,7 @@ menu priority: 7
 	    	row :maquina
 	    	row :maquina_horas
 	    	row :descripcion
-	    	bool_row :realizado
+	    	row("Estado") { |b| status_tag b.estado_de_servicio }
 	    	row :fecha_realizado
 	    	list_row "Insumos", :insumos_array
 	    end
@@ -41,7 +41,7 @@ menu priority: 7
 	scope :all
 
 	scope :pendientes, :default => true do |s|
-		s.where(realizado: false)
+		s.where(estado_de_servicio: EstadoDeServicio::Pendiente.new.to_s)
 	end
 
 	scope :realizados do |s|
@@ -59,7 +59,6 @@ menu priority: 7
 	    column "Horas", :maquina_horas
 	    list_column "Insumos", :insumos_array
 	    column("Estado") { |b| status_tag b.estado_de_servicio }
-	    column :realizado
 	    column("Fecha realizado", :sortable => :fecha_realizado) {|s| s.fecha_realizado.nil? ? "" : s.fecha_realizado.strftime('%d/%m/%Y')}
 	    #column :created_at
 	    actions
@@ -79,7 +78,6 @@ menu priority: 7
 
 	    f.inputs "El servicio ya fue realizado?" do
 	    	f.input :estado_de_servicio, :as => :select, :collection => EstadoDeServicio.select_options, :include_blank => false
-    		f.input :realizado
     		f.input :fecha_realizado, as: :date_time_picker
     	end
 
