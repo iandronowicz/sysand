@@ -1,4 +1,6 @@
 class Servicio < ActiveRecord::Base
+	include ClassyEnum::ActiveRecord
+	classy_enum_attr :estado_de_servicio, :allow_nil => false, :allow_blank => false
 
 	after_create :update_hours
 	after_update :update_hours
