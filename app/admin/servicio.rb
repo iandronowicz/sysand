@@ -15,7 +15,7 @@ menu priority: 7
 #   permitted
 # end
 	
-	config.sort_order = 'realizado_asc'
+	config.sort_order = 'fecha_realizado_desc'
 
 	filter :maquina
 	filter :descripcion
@@ -38,9 +38,9 @@ menu priority: 7
   		end unless servicio.archivos.count == 0
   	end
 
-	scope :all, :default => true
+	scope :all
 
-	scope :pendientes do |s|
+	scope :pendientes, :default => true do |s|
 		s.where(realizado: false)
 	end
 
