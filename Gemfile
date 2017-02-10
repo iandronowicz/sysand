@@ -47,7 +47,8 @@ gem 'rvm-capistrano', require: false
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'activeadmin', '1.0.0.pre4'#, github: 'activeadmin'
+#gem 'activeadmin', '1.0.0.pre4'#, github: 'activeadmin'
+gem 'activeadmin', github: 'activeadmin'
 gem 'classy_enum'
 gem 'mysql2'
 gem 'devise'

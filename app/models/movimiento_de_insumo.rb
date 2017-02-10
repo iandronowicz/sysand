@@ -13,10 +13,11 @@ class MovimientoDeInsumo < ActiveRecord::Base
 	after_update :check_stock
 	before_destroy :destroy_stock
 
-	validate :salida_sin_stock
+	validate :salida_sin_stock, :if => Proc.new{|obj| obj.new_record? || obj.tipo_de_movimiento_was != obj.tipo_de_movimiento || obj.cantidad_was != obj.cantidad }
  
 	def salida_sin_stock
-	    if self.insumo.present? && self.cantidad.present? && self.tipo_de_movimiento.present? && self.tipo_de_movimiento.salida? && self.cantidad > self.insumo.stock
+		#abort("Message goes here")
+	    if self.tipo_de_movimiento.salida? && self.cantidad > self.insumo.stock
 	      errors.add(:cantidad, "stock disponible de  '#{self.insumo}' : #{self.insumo.stock}")
 	    end
   	end
