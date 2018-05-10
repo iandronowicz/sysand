@@ -43,7 +43,8 @@ ActiveAdmin.register Trabajo do
 	
 	index do
 	    selectable_column
-	    column("Inicio", :sortable => :fecha_de_inicio) {|t| t.fecha_de_inicio.nil? ? "" : t.fecha_de_inicio.strftime('%d/%m/%Y')}
+	    #column("Inicio", :sortable => :fecha_de_inicio) {|t| t.fecha_de_inicio.nil? ? "" : t.fecha_de_inicio.strftime('%d/%m/%Y')}
+	    column :fecha_de_inicio
 	    column("Título", :sortable => :titulo) {|t| link_to(t.titulo, admin_trabajo_path(t))}
 	    column :descripcion
 	    column("Estado", :sortable => :estado_de_trabajo) {|t| status_tag t.estado_de_trabajo.text}

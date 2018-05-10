@@ -12,7 +12,7 @@ ActiveAdmin.register_page "Dashboard" do
                 end
             end
             panel "Servicios pendientes" do
-                table_for Servicio.where(realizado: false).order('created_at asc') do
+                table_for Servicio.where(estado_de_servicio: EstadoDeServicio::Pendiente.new.to_s).order('created_at asc') do
                     column("Máquina")   { |servicio| servicio.maquina }
                     column("Descripción"){ |servicio| link_to(truncate(servicio.descripcion, :length => 140), admin_servicio_path(servicio)) }
                 end
@@ -26,12 +26,12 @@ ActiveAdmin.register_page "Dashboard" do
             end
         end
         column do
-            #panel "Último precio de cada tipo de tarea" do
-            #    table_for Tarea.joins(:tipo_de_tarea).order('precio_unitario desc').group('tipo_de_tarea_id') do
-            #        column("Tipo de tarea") { |t| t.tipo_de_tarea }
-            #        column("Precio unitario") { |t| number_to_currency(t.precio_unitario, unit: '$', separator: '.') }
-            #    end
-            #end
+            panel "Último precio de cada tipo de tarea" do
+                table_for TipoDeTarea.order(:descripcion) do
+                    column("Tipo de tarea") { |t| t.ultima_tarea.nil? ? t.to_s_plus : link_to(t.to_s_plus, admin_tarea_path(t.ultima_tarea)) }
+                    column("Descripción") { |t| t.ultima_tarea.nil? ? "" : truncate(t.ultima_tarea.descripcion, :length => 80) }
+                end
+            end
             panel "Último servicio realizado a cada máquina" do
                 table_for Maquina.order('modelo asc') do
                     column("Máquina") { |maquina| maquina }

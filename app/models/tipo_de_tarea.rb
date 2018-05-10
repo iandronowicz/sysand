@@ -7,10 +7,14 @@ class TipoDeTarea < ActiveRecord::Base
 		s = "#{self.descripcion} (#{self.unidad})"
 	end
 
+	def ultima_tarea
+		return Tarea.where("tipo_de_tarea_id = ?", self.id).order("created_at DESC").limit(1).first
+	end
+
 	def to_s_plus
 		s = self.to_s
-		latest_price = Tarea.where("tipo_de_tarea_id = ?", self.id).order("created_at DESC").limit(1).first
-		s += " | #{ActionController::Base.helpers.number_to_currency(latest_price.precio_unitario, unit: '$', separator: '.')} | #{latest_price.created_at.strftime('%d/%m/%Y')}" unless latest_price.nil?
+		ut = self.ultima_tarea
+		s += " | #{ActionController::Base.helpers.number_to_currency(ut.precio_unitario, unit: '$', separator: '.')} | #{ut.created_at.strftime('%d/%m/%Y')}" unless ut.nil?
 		return s
 	end
 end

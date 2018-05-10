@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.7'
+gem 'rails'#, '4.2.7'
 
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
@@ -48,7 +48,7 @@ gem 'rvm-capistrano', require: false
 # gem 'debugger', group: [:development, :test]
 
 #gem 'activeadmin', '1.0.0.pre4'#, github: 'activeadmin'
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin'
 gem 'classy_enum'
 gem 'mysql2'
 gem 'devise'
@@ -61,6 +61,6 @@ gem 'active_admin_datetimepicker'
 
 gem 'spreadsheet'
 
-gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
+gem "paperclip", git: "https://github.com/thoughtbot/paperclip.git"
 
 #gem 'inherited_resources', github: 'activeadmin/inherited_resources'
