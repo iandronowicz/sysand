@@ -48,7 +48,7 @@ ActiveAdmin.register Tarea do
 
   	controller do
 		def scoped_collection
-			super.includes(:trabajo).select '*'#, count(authors.*) as author_count'
+			super.includes(:trabajo)#.select 'id'#, count(authors.*) as author_count'
 		end
 	end
 
