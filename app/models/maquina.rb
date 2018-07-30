@@ -15,7 +15,7 @@ class Maquina < ActiveRecord::Base
 	end
 
 	def last_service_done
-  		Servicio.where({maquina_id: self.id}).order('fecha_realizado desc').limit(1).first
+  		Servicio.where("maquina_id=#{self.id} AND fecha_realizado IS NOT NULL").order('fecha_realizado desc').limit(1).first
   	end
 
   	def insumos_array
