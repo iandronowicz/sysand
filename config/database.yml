@@ -9,7 +9,7 @@ development:
   database: sysand
   pool: 5
   username: root
-  password: root
+  password: 4321
   timeout: 5000
   #port: 8889
   host: localhost
