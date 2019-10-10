@@ -40,7 +40,7 @@ ActiveAdmin.register Trabajo do
 		    end
   		end unless trabajo.tareas.count == 0
   	end
-	
+
 	index do
 	    selectable_column
 	    #column("Inicio", :sortable => :fecha_de_inicio) {|t| t.fecha_de_inicio.nil? ? "" : t.fecha_de_inicio.strftime('%d/%m/%Y')}
@@ -83,7 +83,7 @@ ActiveAdmin.register Trabajo do
 		def index
 			index! do |format|
 		        format.xls {
-		          spreadsheet = TrabajosSpreadsheet.new @trabajos
+		          spreadsheet = TrabajosSpreadsheet.new Trabajo.ransack(params[:q]).result
 		          send_data spreadsheet.generate_xls, filename: "#{Date.today.strftime('%d/%m/%Y')} - Trabajos.xls"
 		        }
 		    end

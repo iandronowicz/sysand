@@ -18,7 +18,7 @@ ActiveAdmin.register Tarea do
 
 	filter :trabajo
 	filter :descripcion
-	filter :tipo_de_tarea
+	filter :tipo_de_tarea, as: :select, multiple: true
 
 	show do
 		attributes_table do
@@ -50,6 +50,16 @@ ActiveAdmin.register Tarea do
 		def scoped_collection
 			super.includes(:trabajo)#.select 'id'#, count(authors.*) as author_count'
 		end
+
+		def index
+			index! do |format|
+		        format.xls {
+		          spreadsheet = TareasSpreadsheet.new Tarea.ransack(params[:q]).result
+		          send_data spreadsheet.generate_xls, filename: "#{Date.today.strftime('%d/%m/%Y')} - Tareas.xls"
+		        }
+		    end
+		end
+
 	end
 
 end
