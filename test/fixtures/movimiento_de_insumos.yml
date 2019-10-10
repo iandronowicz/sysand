@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  insumo_id: 1
+  tipo_de_movimiento: MyString
+  cantidad: 1
+  descripcion: MyText
+
+two:
+  insumo_id: 1
+  tipo_de_movimiento: MyString
+  cantidad: 1
+  descripcion: MyText

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  marca: MyString
+  modelo: MyString
+  descripcion: MyText
+  serie: MyString
+  horas: 1
+  anio: 1
+  encargado: 1
+
+two:
+  marca: MyString
+  modelo: MyString
+  descripcion: MyText
+  serie: MyString
+  horas: 1
+  anio: 1
+  encargado: 1
