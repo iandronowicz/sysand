@@ -4,7 +4,6 @@ require "capistrano/ext/multistage"
 
 set :stages, %w(staging)
 set :default_stage, "staging"
-#default_run_options[:shell] = '/bin/zsh'
 
 set :application, "sysand"
 default_run_options[:pty] = true
@@ -16,7 +15,7 @@ set :deploy_via, :remote_cache
 
 namespace :deploy do
 	task :bundle_gems do
-		run "cd #{deploy_to}/current && export LDFLAGS=\"-L/usr/local/opt/mysql@5.7/lib\" && export CPPFLAGS=\"-I/usr/local/opt/mysql@5.7/include\" && bundle install"
+		run "cd #{deploy_to}/current && bundle install"
 	end
 	task :assets_precompile do
 		run "cd #{deploy_to}/current && rake assets:precompile"
