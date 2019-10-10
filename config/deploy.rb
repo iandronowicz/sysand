@@ -4,6 +4,7 @@ require "capistrano/ext/multistage"
 
 set :stages, %w(staging)
 set :default_stage, "staging"
+default_run_options[:shell] = '/bin/zsh'
 
 set :application, "sysand"
 default_run_options[:pty] = true
