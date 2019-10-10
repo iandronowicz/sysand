@@ -16,8 +16,7 @@ set :deploy_via, :remote_cache
 
 namespace :deploy do
 	task :bundle_gems do
-		run "export LDFLAGS=\"-L/usr/local/opt/mysql@5.7/lib\""
-		run "export CPPFLAGS=\"-I/usr/local/opt/mysql@5.7/include\""
+		run "gem install mysql2 -v '0.5.2' --source 'https://rubygems.org/' -- --with-mysql-dir=/usr/local/opt/mysql@5.7"
 		run "cd #{deploy_to}/current && bundle install"
 	end
 	task :assets_precompile do
