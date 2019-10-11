@@ -18,7 +18,7 @@ namespace :deploy do
 		run "cd #{deploy_to}/current && bundle install"
 	end
 	task :assets_precompile do
-		run "cd #{deploy_to}/current && rake assets:precompile"
+		run "cd #{deploy_to}/current && bundle exec rake assets:precompile"
 	end
 	task :start do ; end
 	task :stop do ; end
