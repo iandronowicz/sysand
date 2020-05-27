@@ -13,14 +13,15 @@ class MovimientoDeInsumo < ActiveRecord::Base
 	after_update :check_stock
 	before_destroy :destroy_stock
 
-	validate :salida_sin_stock, :if => Proc.new{|obj| obj.new_record? || obj.tipo_de_movimiento_was.to_s != obj.tipo_de_movimiento.to_s || obj.cantidad_was != obj.cantidad }
+	validate :salida_sin_stock, :if => Proc.new{|obj| obj.insumo.presence && obj.tipo_de_movimiento.salida? && ( ( !obj.new_record? && obj.cantidad_was != obj.cantidad ) || obj.new_record? ) }
 
 	def salida_sin_stock
-		#abort("Message goes here #{self.tipo_de_movimiento.to_s}")
-	    if self.tipo_de_movimiento.salida? && self.cantidad > self.insumo.stock
-	      errors.add(:cantidad, "stock disponible de  '#{self.insumo}' : #{self.insumo.stock}")
-	    end
-  	end
+		stock_nuevo_requerido = self.cantidad - (self.new_record? ? 0 : self.cantidad_was)
+		#abort("Message goes here #{stock_nuevo_requerido}")
+    if stock_nuevo_requerido > self.insumo.stock
+      errors.add(:cantidad, "no hay stock nuevo solicitado de '#{self.insumo}', solo quedan : #{self.insumo.stock}")
+    end
+	end
 
 	def update_stock
 		update_query = "stock = stock #{self.tipo_de_movimiento.entrada? ? "+" : "-"} #{self.cantidad}"
@@ -29,8 +30,9 @@ class MovimientoDeInsumo < ActiveRecord::Base
 
 	def check_stock
 		#deshacer lo viejo
-		update_query = "stock = stock #{self.tipo_de_movimiento_was.entrada? ? "-" : "+"} #{self.cantidad_was}"
-		Insumo.where(:id => self.insumo_id_was).update_all(update_query)
+		#abort("CANTIDAD_before_last_save=#{self.cantidad_before_last_save}")
+		update_query = "stock = stock #{self.tipo_de_movimiento_before_last_save == TipoDeMovimiento::Entrada.new.to_s ? "-" : "+"} #{self.cantidad_before_last_save}"
+		Insumo.where(:id => self.insumo_id_before_last_save).update_all(update_query)
 
 		#aplicar lo nuevo
 		update_query = "stock = stock #{self.tipo_de_movimiento.entrada? ? "+" : "-"} #{self.cantidad}"

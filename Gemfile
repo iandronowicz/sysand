@@ -61,6 +61,8 @@ gem 'active_admin_datetimepicker'
 
 gem 'spreadsheet'
 
-gem "paperclip", git: "https://github.com/thoughtbot/paperclip.git"
+#gem "paperclip", git: "https://github.com/thoughtbot/paperclip.git"
 
 #gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+
+gem 'image_processing'

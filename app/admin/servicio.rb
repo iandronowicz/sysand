@@ -1,7 +1,8 @@
 ActiveAdmin.register Servicio do
 
-	permit_params :estado_de_servicio, :maquina_id, :maquina_horas, :descripcion, :fecha_realizado, insumo_ids: [], archivos_attributes: [:id, :propietario_id, :imagen, :_destroy]
-menu priority: 7
+	permit_params :estado_de_servicio, :maquina_id, :maquina_horas, :descripcion, :fecha_realizado, insumo_ids: [], archivos: [], archivos_attributes: [:id, :propietario_id, :imagen, :_destroy]
+	menu priority: 7
+
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
@@ -14,7 +15,7 @@ menu priority: 7
 #   permitted << :other if params[:action] == 'create' && current_user.admin?
 #   permitted
 # end
-	
+
 	config.sort_order = 'fecha_realizado_desc'
 
 	filter :maquina
@@ -33,7 +34,8 @@ menu priority: 7
 	    end
 	    panel "Archivos" do
 		    table_for servicio.archivos do
-	        	image_column :imagen, style: :large
+					column("Imagen") { |archivo| image_tag archivo.imagen.variant(resize: "1000x1000") }
+					column("Descarga") { |archivo| link_to "Descargar", archivo.imagen }
 		    end
   		end unless servicio.archivos.count == 0
   	end
@@ -83,7 +85,7 @@ menu priority: 7
 
     	f.inputs "Archivos" do
     		f.has_many :archivos, allow_destroy: true do |ff|
-	          ff.input :imagen, :as => :file, :hint => (ff.template.image_tag(ff.object.imagen.url(:small)) unless ff.object.new_record?)
+	          ff.input :imagen, :as => :file, :hint => (ff.template.image_tag(ff.object.imagen.variant(resize: "100x100")) unless ff.object.new_record?)
 	        end
     	end
 

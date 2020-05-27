@@ -21,3 +21,9 @@ end
 
 class Marca::NewHolland < Marca
 end
+
+class Marca::Volkswagen < Marca
+end
+
+class Marca::Puckett < Marca
+end

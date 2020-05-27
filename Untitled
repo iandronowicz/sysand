@@ -1,0 +1,6 @@
+//Brute-Force: tap all of them fifty times
+for (i = 0; i < 50; i++) {$(".grid").children().each(function() {$( this ).trigger('tap');});}
+
+$('.grid div:contains("1")')
+
+$(".grid").filter(function() { return $(this).text() === "1"; })
