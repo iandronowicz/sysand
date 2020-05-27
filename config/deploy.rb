@@ -13,6 +13,10 @@ set :scm, :git
 set :user_sudo, false
 set :deploy_via, :remote_cache
 
+set :default_environment, {
+  'PATH' => "$PATH:/usr/local/bin"
+}
+
 namespace :deploy do
 	task :bundle_gems do
 		run "cd #{deploy_to}/current && bundle install"

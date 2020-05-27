@@ -34,8 +34,7 @@ ActiveAdmin.register Servicio do
 	    end
 	    panel "Archivos" do
 		    table_for servicio.archivos do
-					column("Imagen") { |archivo| image_tag archivo.imagen.variant(resize: "1000x1000") }
-					column("Descarga") { |archivo| link_to "Descargar", archivo.imagen }
+					column("") { |archivo| link_to image_tag(archivo.imagen.variant(resize: "1000x1000")), rails_blob_path(archivo.imagen, disposition: "attachment") }
 		    end
   		end unless servicio.archivos.count == 0
   	end
