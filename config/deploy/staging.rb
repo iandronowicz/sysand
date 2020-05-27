@@ -1,4 +1,4 @@
-server '190.195.17.249', :app, :web, :primary => true
+server 'admin.androvial.com.ar', :app, :web, :primary => true
 set :user, "homer"
 set :port, 22
 set :rails_env, 'production'
