@@ -34,7 +34,7 @@ ActiveAdmin.register Servicio do
 	    end
 	    panel "Archivos" do
 		    table_for servicio.archivos do
-					column("") { |archivo| link_to image_tag(archivo.imagen.variant(resize: "1000x1000")), rails_blob_path(archivo.imagen, disposition: "attachment") }
+					column("") { |archivo| archivo.imagen.attached? ? (link_to image_tag(archivo.imagen.variant(resize: "1000x1000")), rails_blob_path(archivo.imagen, disposition: "attachment")) : "" }
 		    end
   		end unless servicio.archivos.count == 0
   	end
@@ -84,7 +84,7 @@ ActiveAdmin.register Servicio do
 
     	f.inputs "Archivos" do
     		f.has_many :archivos, allow_destroy: true do |ff|
-	          ff.input :imagen, :as => :file, :hint => (ff.template.image_tag(ff.object.imagen.variant(resize: "100x100")) unless ff.object.new_record?)
+	          ff.input :imagen, :as => :file, :hint => (ff.template.image_tag(ff.object.imagen.variant(resize: "100x100")) unless ( ff.object.new_record? || !ff.object.imagen.attached? ) )
 	        end
     	end
 
